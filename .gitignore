@@ -2,3 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data files
+*.csv
+*.zip
+*.gz
