@@ -36,7 +36,7 @@ model = LinearRegressionModel(input_dim, output_dim)
 #  USE GPU FOR MODEL  #
 #######################
 
-model.cuda()
+#model.cuda()
 
 '''
 INSTANTIATE LOSS CLASS
@@ -63,14 +63,16 @@ for epoch in range(epochs):
     #######################
     #  USE GPU FOR MODEL  #
     #######################
+    inputs = Variable(torch.from_numpy(x_train))
     if torch.cuda.is_available():
-        inputs = Variable(torch.from_numpy(x_train).cuda())
+        inputs.cuda()
         
     #######################
     #  USE GPU FOR MODEL  #
     #######################
+    labels = Variable(torch.from_numpy(y_train))
     if torch.cuda.is_available():
-        labels = Variable(torch.from_numpy(y_train).cuda())
+        labels.cuda()
         
     # Clear gradients w.r.t. parameters
     optimizer.zero_grad() 
@@ -88,4 +90,5 @@ for epoch in range(epochs):
     optimizer.step()
     
     # Logging
-    print('epoch {}, loss {}'.format(epoch, loss.data[0]))
+    print('epoch {}, loss {}'.format(epoch, loss.data.item()))
+
